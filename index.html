@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Project Management Tool</title>
+    <style>
+        /* CSS styles for the project management tool */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .task {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+        }
+
+        .task input[type="checkbox"] {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Project Management Tool</h1>
+
+    <div id="taskList">
+        <!-- Tasks will be dynamically added here -->
+    </div>
+
+    <h2>Add New Task</h2>
+    <form id="taskForm">
+        <input type="text" id="taskInput" placeholder="Task description" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <script>
+        // JavaScript code for the project management tool
+
+        // Function to create a new task element
+        function createTaskElement(taskDescription) {
+            var taskElement = document.createElement("div");
+            taskElement.className = "task";
+
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.addEventListener("change", function () {
+                // Handle task completion
+                if (checkbox.checked) {
+                    taskElement.style.textDecoration = "line-through";
+                } else {
+                    taskElement.style.textDecoration = "none";
+                }
+            });
+            taskElement.appendChild(checkbox);
+
+            var description = document.createElement("span");
+            description.textContent = taskDescription;
+            taskElement.appendChild(description);
+
+            return taskElement;
+        }
+
+        // Function to handle form submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            var taskInput = document.getElementById("taskInput");
+            var taskDescription = taskInput.value.trim();
+
+            if (taskDescription !== "") {
+                var taskElement = createTaskElement(taskDescription);
+                document.getElementById("taskList").appendChild(taskElement);
+                taskInput.value = "";
+            }
+        }
+
+        // Attach form submit event listener
+        document.getElementById("taskForm").addEventListener("submit", handleFormSubmit);
+    </script>
+</body>
+
+</html>
